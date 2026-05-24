@@ -53,7 +53,7 @@ export default function Entry() {
               <span style={{ fontStyle: 'italic', color: 'var(--ash)' }}>for</span> her.
             </h1>
             <p style={{ maxWidth: 400, fontSize: 14, lineHeight: 1.8, color: 'var(--ash-deep)', margin: '0 auto' }}>
-              A world built in black and ash. Quiet, soft, and entirely yours.
+              A world built on the bricks of love. Quiet, soft, and entirely yours.
               Scan to enter, or tap the cipher below.
             </p>
           </motion.div>
