@@ -372,7 +372,7 @@ function DreamsApp() {
 
 // ─── About ────────────────────────────────────────────────────────────────────
 const SPECS = [
-  ['Name', 'Her — One of One'], ['Version', '1.0.0 (Original Edition)'],
+  ['Name', 'Ibukun — One of One'], ['Version', '1.0.0 (Original Edition)'],
   ['Build', 'Assembled with extraordinary care'], ['Processor', 'Pure warmth — no thermal throttling'],
   ['Memory', 'Stores every small thing. Always.'], ['Storage', 'Infinite (mostly full of beauty)'],
   ['Display', 'Stunning in any lighting condition'], ['Battery', 'Charges just by existing'],
