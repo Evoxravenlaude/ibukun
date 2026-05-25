@@ -202,19 +202,19 @@ function CinemaApp() {
 
 // ─── Letter ───────────────────────────────────────────────────────────────────
 const PARAS = [
-  "I'm not a poet. I never was. But every time I think of you, language starts to behave like one — softer, slower, careful with its weight.",
-  "You like black. You like ash. Two colors most people overlook because they think there's nothing inside them. But I've seen what lives there — depth, warmth, the kind of quiet that holds you instead of leaving you alone.",
-  "That's you. Quiet, but never empty. Soft, but never small. Still, but never still enough that I stop noticing.",
-  "I built this little corner because flowers wilt and chocolates run out. But pixels — pixels can stay exactly where I put them, holding the shape of how I feel, unchanging while everything else moves.",
-  "This whole archive is just one long way of saying something simple: you are the most interesting thing that's ever happened to me.",
-  "Come back whenever you forget. It will always be here. So will I.",
+  "Happy Birthday, my love ❤️",
+  "I know this is coming late — blame Ibrahim. I’m sure he has one excuse or another, but it’s still all his fault.",
+  "I know this birthday might not have been the best, but I promise the next one will be better. Your birthday reminds me of all the reasons why I do what I do — to see the smile on your face as you enter another year. I love you more than words can explain, more than my brain can even fathom.",
+  "Every day with you feels special, but today is all about celebrating you — your smile, your heart, your energy, and everything that makes you amazing. I’m grateful for every moment we share, and I honestly can’t wait to make even more memories with you… I mean, make you my wife ❤️",
+  "I hope this new year brings you happiness, peace, success, and everything your heart desires. Keep shining the way you always do. You deserve the world and more.",
+  "I love you endlessly. Happy Birthday, baby",
 ]
 function LetterApp() {
   return (
     <div style={{ height: '100%', overflowY: 'auto', background: 'var(--cream)', padding: '40px 40px' }}>
       <p style={{ fontSize: 10, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.5em', color: 'var(--ash-deep)', marginBottom: 32 }}>A letter — written just for you</p>
       <h1 className="display" style={{ fontSize: 36, lineHeight: 1.2, color: '#1a1a1a', marginBottom: 40 }}>
-        To the girl who painted<br />my world in <span style={{ fontStyle: 'italic' }}>black and ash.</span>
+        To the girl who painted<br />my world in <span style={{ fontStyle: 'italic' }}>blessings and love.</span>
       </h1>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24, fontSize: 15, lineHeight: 1.95, color: '#2a2a2a', fontFamily: 'var(--font-display)' }}>
         {PARAS.map((p, i) => (
