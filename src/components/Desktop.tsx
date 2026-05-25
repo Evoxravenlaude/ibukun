@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   BookOpen, CalendarDays, ChevronLeft, ChevronRight, Check,
   Feather, Film, Gamepad2, GitCommitVertical, Heart, Images,
-  Info, Mail, MapPin, Music, RefreshCw, StickyNote, TerminalSquare,
+  Info, Mail, MapPin, Music, Pause, Play, RefreshCw, StickyNote, TerminalSquare,
 } from 'lucide-react'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -14,11 +14,11 @@ interface Win {
 }
 
 const APPS = [
-  { id: 'gallery',  label: 'Gallery',   Icon: Images,            title: 'Gallery — Frames of You',    w: 820, h: 570 },
+  { id: 'gallery',  label: 'Gallery',   Icon: Images,            title: 'Gallery — Frames of You',    w: 860, h: 590 },
   { id: 'cinema',   label: 'Cinema',    Icon: Film,              title: 'Cinema — Living Stills',     w: 880, h: 540 },
   { id: 'letter',   label: 'Letter',    Icon: Mail,              title: 'Letter — For You',           w: 640, h: 660 },
   { id: 'timeline', label: 'Timeline',  Icon: GitCommitVertical, title: 'Timeline — Marks in Time',   w: 720, h: 580 },
-  { id: 'playlist', label: 'Playlist',  Icon: Music,             title: 'Playlist — Songs for You',   w: 500, h: 560 },
+  { id: 'playlist', label: 'Playlist',  Icon: Music,             title: 'Playlist — Songs for You',   w: 560, h: 620 },
   { id: 'dreams',   label: 'Dreams',    Icon: Heart,             title: 'Dreams — What We\'ll Do',    w: 520, h: 580 },
   { id: 'about',    label: 'About Her', Icon: Info,              title: 'About Her — System Info',    w: 480, h: 500 },
   { id: 'terminal', label: 'Terminal',  Icon: TerminalSquare,    title: 'Terminal — love.sh',         w: 620, h: 390 },
@@ -111,28 +111,41 @@ const dot = (bg: string): React.CSSProperties => ({
 
 // ─── Gallery ──────────────────────────────────────────────────────────────────
 const PHOTOS = [
-  { src: '/media/photos/p1.jpg', caption: 'Neon hush',      detail: 'Late night, soft glow.' },
-  { src: '/media/photos/p2.jpg', caption: 'Slow afternoon', detail: 'Nowhere to be.' },
-  { src: '/media/photos/p3.jpg', caption: 'Stay close',     detail: "Don't go." },
-  { src: '/media/photos/p4.jpg', caption: 'That smile',     detail: 'The one that ruins me.' },
-  { src: '/media/photos/p5.jpg', caption: 'Soft world',     detail: 'You made it soft.' },
-  { src: '/media/photos/p6.jpg', caption: 'Sunlit',         detail: 'Golden everything.' },
+  { src: '/media/photos/p1.jpg',  caption: 'Neon hush',       detail: 'Late night, soft glow.' },
+  { src: '/media/photos/p2.jpg',  caption: 'Slow afternoon',  detail: 'Nowhere to be.' },
+  { src: '/media/photos/p3.jpg',  caption: 'Stay close',      detail: "Don't go." },
+  { src: '/media/photos/p4.jpg',  caption: 'That smile',      detail: 'The one that ruins me.' },
+  { src: '/media/photos/p5.jpg',  caption: 'Soft world',      detail: 'You made it soft.' },
+  { src: '/media/photos/p6.jpg',  caption: 'Sunlit',          detail: 'Golden everything.' },
+  { src: '/media/photos/pa1.jpg', caption: 'Late evening',    detail: 'Everything quietly beautiful.' },
+  { src: '/media/photos/pa2.jpg', caption: 'Still moment',    detail: 'Time stopped here.' },
+  { src: '/media/photos/pa3.jpg', caption: 'Close',           detail: 'Near enough.' },
+  { src: '/media/photos/pa4.jpg', caption: 'Just her',        detail: 'Always her.' },
+  { src: '/media/photos/pa5.jpg', caption: 'Warm light',      detail: 'Sunday morning.' },
+  { src: '/media/photos/pa6.jpg', caption: 'In between',      detail: 'The pause before.' },
+  { src: '/media/photos/pa7.jpg', caption: 'Quiet grace',     detail: 'She never tries.' },
+  { src: '/media/photos/pa8.jpg', caption: 'Favourite frame', detail: 'Saved forever.' },
+  { src: '/media/photos/pa9.jpg', caption: 'Real',            detail: 'Unfiltered. Perfect.' },
+  { src: '/media/photos/pa10.jpg',caption: 'Yours',           detail: 'All of it.' },
+  { src: '/media/photos/pa11.jpg',caption: 'Soft',            detail: 'Always soft.' },
+  { src: '/media/photos/pa12.jpg',caption: 'Present',         detail: 'Here. Now.' },
+  { src: '/media/photos/pa13.jpg',caption: 'One more',        detail: 'Never enough.' },
 ]
 function GalleryApp() {
   const [view, setView] = useState<number | null>(null)
   return (
     <div style={{ height: '100%', background: '#111', overflow: 'hidden', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-      <div style={{ flex: 1, overflow: 'auto', padding: 20, display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 8, alignContent: 'start' }}>
+      <div style={{ flex: 1, overflow: 'auto', padding: 20, display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 6, alignContent: 'start' }}>
         {PHOTOS.map((p, i) => (
           <button key={i} onClick={() => setView(i)}
             style={{ position: 'relative', aspectRatio: '1', overflow: 'hidden', borderRadius: 6, border: 'none', cursor: 'pointer', padding: 0 }}
-            onMouseEnter={e => { (e.currentTarget.querySelector('img') as HTMLImageElement).style.filter = 'grayscale(0) scale(1.05)' }}
+            onMouseEnter={e => { (e.currentTarget.querySelector('img') as HTMLImageElement).style.filter = 'grayscale(0)' }}
             onMouseLeave={e => { (e.currentTarget.querySelector('img') as HTMLImageElement).style.filter = 'grayscale(100%)' }}>
             <img src={p.src} alt={p.caption}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%)', transition: 'filter 0.7s, transform 0.7s', transform: 'scale(1)' }} />
-            <div style={{ position: 'absolute', bottom: 8, left: 8 }}>
-              <div style={{ fontSize: 9, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.3em' }}>{String(i+1).padStart(2,'0')}</div>
-              <div style={{ fontSize: 12, fontFamily: 'var(--font-display)', fontStyle: 'italic', color: 'rgba(255,255,255,0.9)' }}>{p.caption}</div>
+              style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%)', transition: 'filter 0.7s' }} />
+            <div style={{ position: 'absolute', bottom: 6, left: 6 }}>
+              <div style={{ fontSize: 8, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.3em' }}>{String(i+1).padStart(2,'0')}</div>
+              <div style={{ fontSize: 11, fontFamily: 'var(--font-display)', fontStyle: 'italic', color: 'rgba(255,255,255,0.9)' }}>{p.caption}</div>
             </div>
           </button>
         ))}
@@ -167,10 +180,15 @@ function GalleryApp() {
 
 // ─── Cinema ───────────────────────────────────────────────────────────────────
 const VIDEOS = [
-  { src: '/media/videos/v1.mp4', title: 'Moment I',   note: 'Caught in motion.' },
-  { src: '/media/videos/v2.mp4', title: 'Moment II',  note: 'The way you move.' },
-  { src: '/media/videos/v3.mp4', title: 'Moment III', note: 'Soft, unrehearsed.' },
-  { src: '/media/videos/v4.mp4', title: 'Moment IV',  note: 'Replay forever.' },
+  { src: '/media/videos/v1.mp4',  title: 'Moment I',    note: 'Caught in motion.' },
+  { src: '/media/videos/v2.mp4',  title: 'Moment II',   note: 'The way you move.' },
+  { src: '/media/videos/v3.mp4',  title: 'Moment III',  note: 'Soft, unrehearsed.' },
+  { src: '/media/videos/v4.mp4',  title: 'Moment IV',   note: 'Replay forever.' },
+  { src: '/media/videos/nv1.mp4', title: 'Moment V',    note: 'A quiet one.' },
+  { src: '/media/videos/nv2.mp4', title: 'Moment VI',   note: 'Unscripted.' },
+  { src: '/media/videos/bv1.mp4', title: 'The Beginning I',   note: 'Where it all started.' },
+  { src: '/media/videos/bv2.mp4', title: 'The Beginning II',  note: 'Early days.' },
+  { src: '/media/videos/bv3.mp4', title: 'The Beginning III', note: 'Before I knew.' },
 ]
 function CinemaApp() {
   const [cur, setCur] = useState(0)
@@ -181,18 +199,18 @@ function CinemaApp() {
           <video key={VIDEOS[cur].src} src={VIDEOS[cur].src} controls autoPlay playsInline
             style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }} />
         </div>
-        <div style={{ padding: '12px 20px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ padding: '12px 20px', borderTop: '1px solid rgba(255,255,255,0.06)', flexShrink: 0 }}>
           <div style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: 18, color: 'var(--ash)' }}>{VIDEOS[cur].title}</div>
           <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--ash-deep)', textTransform: 'uppercase', letterSpacing: '0.3em' }}>{VIDEOS[cur].note}</div>
         </div>
       </div>
-      <div style={{ width: 176, borderLeft: '1px solid rgba(255,255,255,0.06)', overflowY: 'auto', flexShrink: 0 }}>
+      <div style={{ width: 188, borderLeft: '1px solid rgba(255,255,255,0.06)', overflowY: 'auto', flexShrink: 0 }}>
         {VIDEOS.map((v, i) => (
           <button key={i} onClick={() => setCur(i)}
-            style={{ width: '100%', textAlign: 'left', padding: 16, borderBottom: '1px solid rgba(255,255,255,0.04)',
+            style={{ width: '100%', textAlign: 'left', padding: 14, borderBottom: '1px solid rgba(255,255,255,0.04)',
               background: i === cur ? 'rgba(255,255,255,0.07)' : 'transparent', border: 'none', cursor: 'pointer', display: 'block' }}>
-            <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--ash-deep)', textTransform: 'uppercase', letterSpacing: '0.3em', marginBottom: 4 }}>{String(i+1).padStart(2,'0')}</div>
-            <div style={{ fontSize: 14, fontFamily: 'var(--font-display)', fontStyle: 'italic', color: 'var(--ash)' }}>{v.title}</div>
+            <div style={{ fontSize: 9, fontFamily: 'var(--font-mono)', color: 'var(--ash-deep)', textTransform: 'uppercase', letterSpacing: '0.3em', marginBottom: 3 }}>{String(i+1).padStart(2,'0')}</div>
+            <div style={{ fontSize: 13, fontFamily: 'var(--font-display)', fontStyle: 'italic', color: i === cur ? 'var(--ash)' : 'oklch(0.55 0.005 90)', lineHeight: 1.3 }}>{v.title}</div>
           </button>
         ))}
       </div>
@@ -203,9 +221,9 @@ function CinemaApp() {
 // ─── Letter ───────────────────────────────────────────────────────────────────
 const PARAS = [
   "Happy Birthday, my love ❤️",
-  "I know this is coming late — blame Ibrahim. I’m sure he has one excuse or another, but it’s still all his fault.",
+  "I know this is coming late — blame Ibrahim. I'm sure he has one excuse or another, but it's still all his fault.",
   "I know this birthday might not have been the best, but I promise the next one will be better. Your birthday reminds me of all the reasons why I do what I do — to see the smile on your face as you enter another year. I love you more than words can explain, more than my brain can even fathom.",
-  "Every day with you feels special, but today is all about celebrating you — your smile, your heart, your energy, and everything that makes you amazing. I’m grateful for every moment we share, and I honestly can’t wait to make even more memories with you… I mean, make you my wife ❤️",
+  "Every day with you feels special, but today is all about celebrating you — your smile, your heart, your energy, and everything that makes you amazing. I'm grateful for every moment we share, and I honestly can't wait to make even more memories with you… I mean, make you my wife ❤️",
   "I hope this new year brings you happiness, peace, success, and everything your heart desires. Keep shining the way you always do. You deserve the world and more.",
   "I love you endlessly. Happy Birthday, baby",
 ]
@@ -230,14 +248,46 @@ function LetterApp() {
 }
 
 // ─── Timeline ─────────────────────────────────────────────────────────────────
+// First entry uses a real photo + video from "the beginning" folder
 const TL = [
-  { tag: 'First', title: 'The moment I noticed.',  body: 'Not the day we met — the day I realized I was already in trouble.', img: '/media/photos/p5.jpg' },
-  { tag: 'Soft',  title: 'Late-night light.',       body: "You laughed at something I can't remember. The glow did the rest.", img: '/media/photos/p1.jpg' },
-  { tag: 'Close', title: 'Lazy mornings.',          body: 'Pillows. Curtain light. You making a face only I get to see.', img: '/media/photos/p2.jpg' },
-  { tag: 'Home',  title: 'Just us.',                body: 'Two people. No plans. Maybe the best version of life.', img: '/media/photos/p4.jpg' },
-  { tag: 'Now',   title: 'Today.',                  body: 'Still here. Still chasing the same smile.', img: '/media/photos/p6.jpg' },
+  {
+    tag: 'First',
+    title: 'The moment I noticed.',
+    body: 'Not the day we met — the day I realized I was already in trouble.',
+    img: '/media/photos/pa1.jpg',
+    video: '/media/videos/bv1.mp4',
+  },
+  {
+    tag: 'Soft',
+    title: 'Late-night light.',
+    body: "You laughed at something I can't remember. The glow did the rest.",
+    img: '/media/photos/p1.jpg',
+    video: null,
+  },
+  {
+    tag: 'Close',
+    title: 'Lazy mornings.',
+    body: 'Pillows. Curtain light. You making a face only I get to see.',
+    img: '/media/photos/p2.jpg',
+    video: null,
+  },
+  {
+    tag: 'Home',
+    title: 'Just us.',
+    body: 'Two people. No plans. Maybe the best version of life.',
+    img: '/media/photos/p4.jpg',
+    video: null,
+  },
+  {
+    tag: 'Now',
+    title: 'Today.',
+    body: 'Still here. Still chasing the same smile.',
+    img: '/media/photos/pa5.jpg',
+    video: null,
+  },
 ]
 function TimelineApp() {
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null)
   return (
     <div style={{ height: '100%', overflowY: 'auto', background: 'var(--ivory)', padding: '32px' }}>
       <p style={{ fontSize: 10, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.5em', color: 'var(--ash-deep)', marginBottom: 32 }}>Timeline — Marks in Time</p>
@@ -250,15 +300,44 @@ function TimelineApp() {
               <div style={{ position: 'absolute', left: 0, top: 8, width: 24, height: 24, borderRadius: '50%', background: 'var(--beige)', border: '1px solid rgba(26,26,26,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'rgba(26,26,26,0.5)' }} />
               </div>
-              <div style={{ width: 96, flexShrink: 0, aspectRatio: '3/4', overflow: 'hidden', borderRadius: 6 }}>
-                <img src={e.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%)', transition: 'filter 0.7s' }}
-                  onMouseEnter={e => (e.currentTarget.style.filter = 'grayscale(0)')}
-                  onMouseLeave={e => (e.currentTarget.style.filter = 'grayscale(100%)')} />
+              {/* Media: video player for first entry, photo for rest */}
+              <div style={{ width: 96, flexShrink: 0, aspectRatio: '3/4', overflow: 'hidden', borderRadius: 6, position: 'relative', background: '#000' }}>
+                {e.video ? (
+                  <>
+                    {playingVideo === e.video ? (
+                      <video src={e.video} autoPlay playsInline controls={false}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        onClick={() => setPlayingVideo(null)} />
+                    ) : (
+                      <>
+                        <img src={e.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(60%)' }} />
+                        <button onClick={() => setPlayingVideo(e.video)}
+                          style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            background: 'rgba(0,0,0,0.38)', border: 'none', cursor: 'pointer' }}>
+                          <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(255,255,255,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <Play size={12} color="#1a1a1a" style={{ marginLeft: 2 }} />
+                          </div>
+                        </button>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <img src={e.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%)', transition: 'filter 0.7s' }}
+                    onMouseEnter={ev => (ev.currentTarget.style.filter = 'grayscale(0)')}
+                    onMouseLeave={ev => (ev.currentTarget.style.filter = 'grayscale(100%)')} />
+                )}
               </div>
               <div style={{ paddingTop: 4 }}>
                 <div style={{ fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.4em', color: 'var(--ash-deep)', marginBottom: 4 }}>{String(i+1).padStart(2,'0')} · {e.tag}</div>
                 <h3 className="display" style={{ fontSize: 24, color: '#1a1a1a', marginBottom: 8, lineHeight: 1.2 }}>{e.title}</h3>
                 <p style={{ fontSize: 13, color: '#3a3a3a', lineHeight: 1.7, fontFamily: 'var(--font-display)' }}>{e.body}</p>
+                {e.video && (
+                  <button onClick={() => setPlayingVideo(playingVideo === e.video ? null : e.video)}
+                    style={{ marginTop: 10, display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: '1px solid rgba(26,26,26,0.2)', borderRadius: 20, padding: '4px 12px', cursor: 'pointer', fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.3em', color: 'var(--ash-deep)' }}>
+                    {playingVideo === e.video ? <Pause size={9} /> : <Play size={9} />}
+                    {playingVideo === e.video ? 'Pause' : 'Play clip'}
+                  </button>
+                )}
               </div>
             </motion.div>
           ))}
@@ -268,56 +347,107 @@ function TimelineApp() {
   )
 }
 
-// ─── Playlist ─────────────────────────────────────────────────────────────────
+// ─── Playlist — real audio via YouTube IFrame API ─────────────────────────────
 const TRACKS = [
-  { title: 'Golden Hour',              artist: 'JVKE',           dur: '3:08' },
-  { title: 'Softly',                   artist: 'Clairo',         dur: '2:58' },
-  { title: 'Fallingforyou',            artist: 'The 1975',       dur: '4:43' },
-  { title: 'Die For You',              artist: 'The Weeknd',     dur: '4:20' },
-  { title: 'Slow Dancing in the Dark', artist: 'Joji',           dur: '3:23' },
-  { title: 'All I Want',               artist: 'Kodaline',       dur: '5:04' },
-  { title: 'Lover',                    artist: 'Taylor Swift',   dur: '3:41' },
-  { title: 'From the Start',           artist: 'Laufey',         dur: '3:19' },
-  { title: 'You Are The Best Thing',   artist: 'Ray LaMontagne', dur: '3:45' },
-  { title: 'Perfect',                  artist: 'Ed Sheeran',     dur: '4:23' },
-  { title: 'Skinny Love',              artist: 'Bon Iver',       dur: '3:58' },
-  { title: 'Still Into You',           artist: 'Paramore',       dur: '3:36' },
+  { title: 'Golden Hour',              artist: 'JVKE',           dur: '3:08', ytId: 'PEM0Vs8jf1w' },
+  { title: 'Softly',                   artist: 'Clairo',         dur: '2:58', ytId: 'tT7jRt2mNW8' },
+  { title: 'Fallingforyou',            artist: 'The 1975',       dur: '4:43', ytId: 'K8kp7-sDiFw' },
+  { title: 'Die For You',              artist: 'The Weeknd',     dur: '4:20', ytId: 'mNNh3YT-nBM' },
+  { title: 'Slow Dancing in the Dark', artist: 'Joji',           dur: '3:23', ytId: 'K3Qzzggn--s' },
+  { title: 'All I Want',               artist: 'Kodaline',       dur: '5:04', ytId: 'kFXA30MlMPE' },
+  { title: 'Lover',                    artist: 'Taylor Swift',   dur: '3:41', ytId: '2X_2IdybTV0' },
+  { title: 'From the Start',           artist: 'Laufey',         dur: '3:19', ytId: 'k5PUisFbsq8' },
+  { title: 'You Are The Best Thing',   artist: 'Ray LaMontagne', dur: '3:45', ytId: 'rWjh5SjCJdA' },
+  { title: 'Perfect',                  artist: 'Ed Sheeran',     dur: '4:23', ytId: '2Vv-BfVoq4g' },
+  { title: 'Skinny Love',              artist: 'Bon Iver',       dur: '3:58', ytId: 'szdpFUmWxik' },
+  { title: 'Still Into You',           artist: 'Paramore',       dur: '3:36', ytId: 'l7NVWCiMHbk' },
+  { title: 'Beautiful Things',         artist: 'Benson Boone',   dur: '3:32', ytId: 'Vy-4pZVjR3E' },
+  { title: 'Superstar',                artist: 'Sheryl Crow',    dur: '2:42', ytId: 'NWtCgXC-CyQ' },
+  { title: 'I Will Always Love You',   artist: 'Whitney Houston',dur: '4:32', ytId: 'iosWQyXVdKI' },
 ]
 const BARS = [3, 5, 4, 6, 3, 5]
+
 function PlaylistApp() {
   const [active, setActive] = useState(0)
+  const [playing, setPlaying] = useState(false)
+  const frameRef = useRef<HTMLIFrameElement>(null)
+
+  // When active track changes and we're playing, reload iframe to autoplay
+  const play = (idx: number) => {
+    setActive(idx)
+    setPlaying(true)
+  }
+  const togglePlay = () => setPlaying(p => !p)
+
+  const iframeSrc = playing
+    ? `https://www.youtube.com/embed/${TRACKS[active].ytId}?autoplay=1&controls=0&modestbranding=1&rel=0&showinfo=0`
+    : ''
+
   return (
     <div style={{ height: '100%', background: '#111', display: 'flex', flexDirection: 'column' }}>
+      {/* Hidden YouTube iframe — audio only experience */}
+      {playing && (
+        <iframe
+          ref={frameRef}
+          key={`${active}-${playing}`}
+          src={iframeSrc}
+          allow="autoplay"
+          style={{ position: 'absolute', width: 1, height: 1, opacity: 0, pointerEvents: 'none' }}
+          title="audio"
+        />
+      )}
+
+      {/* Now playing header */}
       <div style={{ padding: 20, borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0 }}>
-        <div style={{ fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.4em', color: 'var(--ash-deep)', marginBottom: 8 }}>Now Playing</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ fontSize: 9, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.4em', color: 'var(--ash-deep)', marginBottom: 10 }}>Now Playing</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          {/* Animated bars — only when playing */}
           <div style={{ display: 'flex', alignItems: 'flex-end', gap: 2, height: 20, flexShrink: 0 }}>
             {BARS.map((h, i) => (
-              <motion.div key={i} style={{ width: 3, background: 'var(--ash)', borderRadius: 2 }}
-                animate={{ height: [`${h*3}px`, `${(h+3)*3}px`, `${h*3}px`] }}
-                transition={{ duration: 0.5 + i * 0.1, repeat: Infinity, ease: 'easeInOut' }} />
+              playing ? (
+                <motion.div key={i} style={{ width: 3, background: 'var(--ash)', borderRadius: 2 }}
+                  animate={{ height: [`${h*3}px`, `${(h+3)*3}px`, `${h*3}px`] }}
+                  transition={{ duration: 0.5 + i * 0.1, repeat: Infinity, ease: 'easeInOut' }} />
+              ) : (
+                <div key={i} style={{ width: 3, height: `${h*3}px`, background: 'var(--ash-deep)', borderRadius: 2 }} />
+              )
             ))}
           </div>
-          <div>
+          <div style={{ flex: 1 }}>
             <div style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: 18, color: 'var(--ash)' }}>{TRACKS[active].title}</div>
             <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--ash-deep)' }}>{TRACKS[active].artist}</div>
           </div>
+          {/* Play/Pause button */}
+          <button onClick={togglePlay}
+            style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--ash)', border: 'none', cursor: 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            {playing ? <Pause size={14} color="#0a0a0a" /> : <Play size={14} color="#0a0a0a" style={{ marginLeft: 2 }} />}
+          </button>
         </div>
       </div>
+
+      {/* Track list */}
       <div style={{ flex: 1, overflowY: 'auto' }}>
         {TRACKS.map((t, i) => (
-          <button key={i} onClick={() => setActive(i)}
-            style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 16, padding: '12px 20px',
-              borderBottom: '1px solid rgba(255,255,255,0.04)', background: i === active ? 'rgba(255,255,255,0.07)' : 'transparent',
+          <button key={i} onClick={() => play(i)}
+            style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 16, padding: '11px 20px',
+              borderBottom: '1px solid rgba(255,255,255,0.04)',
+              background: i === active ? 'rgba(255,255,255,0.07)' : 'transparent',
               border: 'none', cursor: 'pointer', textAlign: 'left' }}>
-            <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--ash-deep)', width: 20 }}>{String(i+1).padStart(2,'0')}</span>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 13, fontFamily: 'var(--font-display)', fontStyle: 'italic', color: i === active ? 'var(--ash)' : 'var(--ash-deep)' }}>{t.title}</div>
+            <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--ash-deep)', width: 20, flexShrink: 0 }}>
+              {i === active && playing ? '▶' : String(i+1).padStart(2,'0')}
+            </span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 13, fontFamily: 'var(--font-display)', fontStyle: 'italic',
+                color: i === active ? 'var(--ash)' : 'var(--ash-deep)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{t.title}</div>
               <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'rgba(115,112,105,0.6)' }}>{t.artist}</div>
             </div>
-            <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--ash-deep)' }}>{t.dur}</span>
+            <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--ash-deep)', flexShrink: 0 }}>{t.dur}</span>
           </button>
         ))}
+      </div>
+      <div style={{ padding: '8px 20px', borderTop: '1px solid rgba(255,255,255,0.04)', fontSize: 9, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.12)', textTransform: 'uppercase', letterSpacing: '0.3em' }}>
+        {TRACKS.length} songs · tap any track to play
       </div>
     </div>
   )
@@ -486,7 +616,7 @@ function CalendarApp() {
 // ─── Journal ──────────────────────────────────────────────────────────────────
 const JOURNAL = [
   { date: 'An early morning',  title: 'The first time I was sure.',  body: "You said something quiet and I realized I'd been listening to you far more carefully than I listen to anyone else. That was when I knew. Not with alarm — just with certainty. The way you know the season has changed." },
-  { date: 'A late evening',    title: 'Everything you don\'t say.',  body: "You went quiet for a while and I sat in it with you, and somehow that was enough. More than enough. I've never been comfortable with silence — but yours is different. Yours feels like trust." },
+  { date: 'A late evening',    title: "Everything you don't say.",   body: "You went quiet for a while and I sat in it with you, and somehow that was enough. More than enough. I've never been comfortable with silence — but yours is different. Yours feels like trust." },
   { date: 'A random Tuesday',  title: 'You laughed.',                body: "At something small. Something that didn't even matter. And I replayed it eight times in my head that evening because that laugh is the best thing I've heard all year. Maybe in a while." },
   { date: 'This morning',      title: 'Still.',                      body: "Still thinking about you. Still building things for you. Still grateful for whatever strange luck put us in the same orbit. Still — and probably always." },
 ]
@@ -858,7 +988,6 @@ export default function Desktop() {
 
   return (
     <>
-      {/* Boot screen */}
       <AnimatePresence>
         {!booted && (
           <motion.div exit={{ opacity: 0 }} transition={{ duration: 0.7 }}
@@ -875,26 +1004,21 @@ export default function Desktop() {
         )}
       </AnimatePresence>
 
-      {/* Desktop */}
       <AnimatePresence>
         {booted && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9 }}
             style={{ position: 'fixed', inset: 0, overflow: 'hidden', background: '#080808' }}>
-            {/* Wallpaper */}
             <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
               <img src="/media/photos/p3.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.11, filter: 'grayscale(100%)' }} />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0.6) 50%, rgba(8,8,8,0.92) 100%)' }} />
             </div>
-            {/* Hint */}
             <div style={{ position: 'absolute', bottom: 96, right: 32, textAlign: 'right', pointerEvents: 'none' }}>
               <div style={{ fontSize: 8, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.07)', textTransform: 'uppercase', letterSpacing: '0.45em', lineHeight: 2 }}>Click any icon</div>
               <div style={{ fontSize: 8, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.07)', textTransform: 'uppercase', letterSpacing: '0.45em' }}>in the dock below</div>
             </div>
-            {/* Mascots */}
             <div style={{ position: 'fixed', bottom: 88, left: 24, zIndex: 9997, display: 'flex', alignItems: 'flex-end', gap: 20 }}>
               <MascotAsh /><MascotIvory />
             </div>
-            {/* Windows */}
             <AnimatePresence>
               {wins.map(win => {
                 const App = APP_MAP[win.app]
@@ -912,7 +1036,6 @@ export default function Desktop() {
         )}
       </AnimatePresence>
 
-      {/* Chrome */}
       {booted && <><Menubar openApp={open} /><Dock wins={wins} openApp={open} /></>}
     </>
   )
